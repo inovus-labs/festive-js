@@ -1,0 +1,47 @@
+{
+  "key": "diwali-sparkles",
+  "name": "Diwali Sparkles",
+  "triggers": [
+    {
+      "type": "range",
+      "monthStart": 10,
+      "dayStart": 20,
+      "monthEnd": 11,
+      "dayEnd": 20
+    }
+  ],
+  "params": {
+    "color": {
+      "type": "string",
+      "default": "#ffd54f"
+    },
+    "trail": {
+      "type": "boolean",
+      "default": true
+    },
+    "density": {
+      "type": "number",
+      "default": 80
+    },
+    "sizeMin": {
+      "type": "number",
+      "default": 2
+    },
+    "sizeMax": {
+      "type": "number",
+      "default": 5
+    },
+    "riseMin": {
+      "type": "number",
+      "default": 4.0
+    },
+    "riseMax": {
+      "type": "number",
+      "default": 7.5
+    },
+    "randomness": {
+      "type": "number",
+      "default": 0.5
+    }
+  }
+}

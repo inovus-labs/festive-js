@@ -1,0 +1,41 @@
+{
+  "key": "christmas-snow",
+  "name": "Christmas Snowfall",
+  "triggers": [
+    {
+      "type": "date",
+      "month": 12,
+      "day": 25
+    }
+  ],
+  "params": {
+    "color": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "minSize": {
+      "type": "number",
+      "default": 4
+    },
+    "maxSize": {
+      "type": "number",
+      "default": 10
+    },
+    "density": {
+      "type": "number",
+      "default": 100
+    },
+    "speedMin": {
+      "type": "number",
+      "default": 0.8
+    },
+    "speedMax": {
+      "type": "number",
+      "default": 2.5
+    },
+    "randomness": {
+      "type": "number",
+      "default": 0.5
+    }
+  }
+}
