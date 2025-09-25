@@ -5,8 +5,7 @@
   "author": "Inovus Labs",
   "type": "module",
   "main": "dist/festive.min.js",
-  "module": "src/index.js",
-  "types": "index.d.ts",
+  "module": "index.js",
   "scripts": {
     "build": "npm run build:dev && npm run build:min",
     "build:dev": "vite build",

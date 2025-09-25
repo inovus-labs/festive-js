@@ -64,16 +64,21 @@
 </head>
 <body>
   <div class="panel">
-    <h1>Christmas Snow</h1>
+    <h1>Festive Themes</h1>
+
+    <!-- Snowfall Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #f43f5e;">Snowfall</h2>
     <div class="buttons">
-      <button onclick="Festive.init({forceTheme:'christmas-snow'})">Default Snow</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {density: 500}}})">Blizzard</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {density: 10}}})">Sparse</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {speedMin: 0.1, speedMax: 0.5}}})">Floating</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {speedMin: 5.0, speedMax: 8.0}}})">Storm</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {maxSize: 30, minSize: 15}}})">Giant Flakes</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {maxSize: 2, minSize: 1}}})">Tiny Flakes</button>
-      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {randomness: 2.0}}})">Windy</button>
+      <button onclick="Festive.init({forceTheme:'snowfall'})">Classic Snowfall</button>
+      <button onclick="Festive.init({forceTheme:'snowfall', themes: {'snowfall': {snowflakeChar: '✦', color: '#87ceeb', maxSize: 16}}})">Magical Stars</button>
+    </div>
+
+    <!-- Santa Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #22c55e;">Santa's Journey</h2>
+    <div class="buttons">
+      <button onclick="Festive.init({forceTheme:'santa'})">Santa's Adventure</button>
+      <button onclick="Festive.init({forceTheme:'santa', themes: {'santa': {unicycleDuration: 10, sledDuration: 8, santaSize: 120}}})">Speedy Santa</button>
+      <button onclick="Festive.init({forceTheme:'santa', themes: {'santa': {showOverlay: false, santaBottom: 10}}})">Clear Sky Journey</button>
     </div>
     
     <div class="clear-section">
