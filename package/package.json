@@ -1,0 +1,38 @@
+{
+  "name": "festive-js",
+  "version": "0.1.2",
+  "description": "A tiny, zero-dependency JavaScript library to add festive overlays to your website.",
+  "author": "Arjun Krishna",
+  "type": "module",
+  "main": "festive-js.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "festive",
+    "overlay",
+    "themes",
+    "holiday",
+    "iife",
+    "vite",
+    "minified"
+  ],
+  "license": "MIT",
+  "private": false,
+  "unpkg": "festive-js.js",
+  "jsdelivr": "festive-js.js",
+  "files": [
+    "festive-js.js",
+    "src",
+    "themes",
+    "entry.glob.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "vite": "^4.4.9"
+  }
+}
