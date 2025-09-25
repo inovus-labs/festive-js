@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Festive.js - Example</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      margin: 0; 
+      height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      font-family: 'Roboto', sans-serif; 
+      background: #1a1a1a;
+      color: #fff;
+      overflow: hidden;
+    }
+    .panel { 
+      text-align: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 300;
+      margin: 0 0 2rem 0;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .clear-section {
+      text-align: center;
+    }
+    button { 
+      padding: 12px 24px; 
+      border: 1px solid #444;
+      background: #2a2a2a;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer; 
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #3a3a3a;
+    }
+    .clear-btn {
+      background: #333;
+      border: 1px solid #666;
+      color: #ccc;
+    }
+    .clear-btn:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>Christmas Snow</h1>
+    <div class="buttons">
+      <button onclick="Festive.init({forceTheme:'christmas-snow'})">Default Snow</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {density: 500}}})">Blizzard</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {density: 10}}})">Sparse</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {speedMin: 0.1, speedMax: 0.5}}})">Floating</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {speedMin: 5.0, speedMax: 8.0}}})">Storm</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {maxSize: 30, minSize: 15}}})">Giant Flakes</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {maxSize: 2, minSize: 1}}})">Tiny Flakes</button>
+      <button onclick="Festive.init({forceTheme:'christmas-snow', themes: {'christmas-snow': {randomness: 2.0}}})">Windy</button>
+    </div>
+    
+    <div class="clear-section">
+      <button class="clear-btn" onclick="Festive.destroy?.()">Clear</button>
+    </div>
+  </div>
+
+  <script src="../dist/festive.js"></script>
+  <script>
+    Festive.init();
+  </script>
+</body>
+</html>

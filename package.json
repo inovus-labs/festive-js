@@ -1,24 +1,13 @@
 {
-  "name": "festive-js",
-  "version": "0.1.1",
-  "description": "A lightweight, themeable JavaScript SDK for adding festive overlays to web applications.",
-  "type": "module",
-  "main": "standalone/festive.js",
-  "module": "src/index.js",
-  "author": "Arjun Krishna",
-  "license": "MIT",
-  "scripts": {
-    "build": "vite build",
-    "preview": "vite preview",
-    "dev": "vite"
-  },
-  "devDependencies": {
-    "vite": "^4.4.9"
-  },
-  "browserslist": [
-    "defaults"
+  "name": "festive-root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
   ],
-  "browser": "festive.js",
-  "unpkg": "festive.js",
-  "jsdelivr": "festive.js"
+  "scripts": {
+    "build": "npm -w package run build",
+    "preview": "npm -w package run preview",
+    "dev": "npm -w package run dev"
+  }
 }
