@@ -2,7 +2,7 @@
   "name": "festive-js",
   "version": "0.1.2",
   "description": "A tiny, zero-dependency JavaScript library to add festive overlays to your website.",
-  "author": "Arjun Krishna",
+  "author": "Inovus Labs",
   "type": "module",
   "main": "festive-js.js",
   "module": "src/index.js",

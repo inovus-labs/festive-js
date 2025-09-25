@@ -16,7 +16,7 @@ export default defineConfig({
     rollupOptions: {
       treeshake: true,
       output: {
-        banner: "/* Festive.js | (c) 2020-2024 Arjun Krishna | MIT License */",
+        banner: "/* Festive.js | (c) 2020-2024 Inovus Labs | MIT License */",
         extend: true
       }
     },
