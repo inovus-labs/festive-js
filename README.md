@@ -64,8 +64,7 @@ You can contribute to Festive.js in **two ways**:
 - Add a new festive theme (Diwali, Halloween, Independence Day, New Year, Easter, local cultural festivals, etc.)
 - Keep it **lightweight, minimal, and non-intrusive**
 - Each theme has:
-  - `manifest.json` → metadata, params, auto-trigger rules
-  - `theme.js` → effect implementation
+  - `index.js` → theme implementation with metadata, params, auto-trigger rules, and effect implementation
 
 ### 2. ⚙️ Contribute to Core
 - Improve SDK internals (performance optimizations, cleanup improvements)
@@ -102,23 +101,45 @@ To quickly add Festive.js to your site, include the script from the CDN and init
 ### Force a theme
 To force a specific theme (e.g. for testing), use:
 ```html
-Festive.init({ forceTheme: "diwali-crackers" });
+Festive.init({ forceTheme: "christmas-snow" });
+// or
+Festive.init({ forceTheme: "snowfall" });
+// or
+Festive.init({ forceTheme: "santa" });
 ```
 
 ### Customize theme params
 To customize parameters for a theme, pass them in the `themes` option:
 ```html
 Festive.init({
-  forceTheme: "diwali-crackers",
+  forceTheme: "snowfall",
   themes: {
-    "diwali-crackers": { burstRate: 700, particleCount: 100 }
+    "snowfall": { 
+      density: 150, 
+      snowflakeChar: "✦", 
+      color: "#87ceeb",
+      driftRange: 30 
+    }
+  }
+});
+
+// Santa theme example
+Festive.init({
+  forceTheme: "santa",
+  themes: {
+    "santa": {
+      santaSize: 200,
+      unicycleDuration: 10,
+      sledDuration: 8,
+      showOverlay: true
+    }
   }
 });
 ```
 
 
 <!-- ## 📖 Docs & Showcase
-👉 Visit [festive-js demo](https://inovuslabs.github.io/festive-js) for:
+👉 Visit [festive-js demo](https://inovus-labs.github.io/festive-js) for:
 - Usage docs  
 - Theme gallery  
 - Playground to tweak params  

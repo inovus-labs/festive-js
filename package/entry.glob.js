@@ -1,7 +1,7 @@
 
-import Festive from "./src/index.js";
+import Festive from "./index.js";
 
-const modules = import.meta.glob("./themes/**/theme.js", { eager: true });
+const modules = import.meta.glob("./themes/**/index.js", { eager: true });
 for (const path in modules) {
   const mod = modules[path];
   const theme = mod?.default;

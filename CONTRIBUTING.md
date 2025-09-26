@@ -22,8 +22,7 @@ You can contribute in two main ways:
 - Structure:
   ```
   /themes/your-theme/
-    ├── manifest.json
-    └── theme.js
+    └── index.js
   ```
 
 ### 2. ⚙️ Contribute to Core
@@ -38,34 +37,7 @@ You can contribute in two main ways:
 
 ## 🗂️ Theme Structure
 
-### manifest.json
-```json
-{
-  "key": "diwali-crackers",
-  "name": "Diwali Crackers (Fireworks)",
-  "triggers": [
-    {
-      "type": "range",
-      "monthStart": 10, 
-      "dayStart": 20, 
-      "monthEnd": 11, 
-      "dayEnd": 20
-    }
-  ],
-  "params": {
-    "colors": {
-      "type": "array", 
-      "default": ["#ffd54f", "#ff6b6b"]
-    },
-    "burstRate": { 
-      "type": "number", 
-      "default": 900
-    }
-  }
-}
-```
-
-### theme.js
+### index.js
 ```js
 export default {
   key: "diwali-crackers",
