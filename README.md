@@ -139,7 +139,7 @@ Festive.init({
 
 
 <!-- ## 📖 Docs & Showcase
-👉 Visit [festive-js demo](https://inovuslabs.github.io/festive-js) for:
+👉 Visit [festive-js demo](https://inovus-labs.github.io/festive-js) for:
 - Usage docs  
 - Theme gallery  
 - Playground to tweak params  
