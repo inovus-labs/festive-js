@@ -4,14 +4,32 @@
   "description": "A tiny, zero-dependency JavaScript library to add festive overlays to your website.",
   "author": "Inovus Labs",
   "type": "module",
-  "main": "dist/festive.min.js",
-  "module": "index.js",
+  "main": "dist/core.min.js",
+  "module": "entry.glob.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./entry.glob.js",
+      "require": "./dist/core.min.js",
+      "types": "./index.d.ts",
+      "development": "./entry.glob.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/inovus-labs/festive-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/inovus-labs/festive-js/issues"
+  },
+  "homepage": "https://github.com/inovus-labs/festive-js#readme",
   "scripts": {
     "build": "npm run build:dev && npm run build:min",
     "build:dev": "vite build",
     "build:min": "BUILD_MODE=min vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:npm": "./npm-build.sh"
   },
   "keywords": [
     "festive",
@@ -22,11 +40,11 @@
   ],
   "license": "MIT",
   "private": false,
-  "unpkg": "dist/festive.min.js",
-  "jsdelivr": "dist/festive.min.js",
+  "unpkg": "dist/core.min.js",
+  "jsdelivr": "dist/core.min.js",
   "files": [
-    "dist/festive.js",
-    "dist/festive.min.js",
+    "dist/core.js",
+    "dist/core.min.js",
     "index.d.ts",
     "README.md",
     "LICENSE"
