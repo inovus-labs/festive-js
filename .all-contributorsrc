@@ -1,0 +1,12 @@
+{
+  "projectName": "festive-js",
+  "projectOwner": "inovus-labs",
+  "contributorsSortAlphabetically": true,
+  "files": [
+    "CONTRIBUTORS.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": []
+}
