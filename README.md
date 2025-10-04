@@ -89,6 +89,8 @@ You can contribute to Festive.js in **two ways**:
 
 ## 🚀 Getting Started
 
+> **Note**: During Hacktoberfest 2025, the `themes` branch is the default branch. All theme contributions should be made to this branch.
+
 ### Using CDN
 To quickly add Festive.js to your site, include the script from the CDN and initialize:
 ```html
@@ -147,8 +149,7 @@ Festive.init({
 
 
 ## 🤝 Contributing
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines.
-
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines. Also check out our amazing contributors in [CONTRIBUTORS.md](./CONTRIBUTORS.md).
 
 ## 📝 License
 This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.

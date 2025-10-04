@@ -12,13 +12,17 @@ You can contribute in two main ways:
 
 ### 1. 🎨 Contribute a Theme
 - Add a festive/cultural theme (Diwali, Halloween, Christmas, Easter, New Year, etc.)
-- Theme rules:
-  - Minimal code, no third-party libraries  
-  - Pure Vanilla JS, no CSS frameworks  
-  - Must be lightweight (ideally <10KB minified)  
-  - Must be non-intrusive and subtle
-  - Must not block host site interactivity (`pointer-events: none`)  
-  - Must return a cleanup function in `apply()`  
+- **Basic Rules for Themes:**
+  - **Scalability**: Themes must be scalable and adjust on all device sizes and resolutions
+  - **Performance**: Must not affect the overall purpose and performance of the website
+  - **Non-blocking**: Overlay should not be a blocker for the normal user to use the website for which it is intended for
+  - **Technical Requirements**:
+    - Minimal code, no third-party libraries  
+    - Pure Vanilla JS, no CSS frameworks  
+    - Must be lightweight (ideally <10KB minified)  
+    - Must be non-intrusive and subtle
+    - Must not block host site interactivity (`pointer-events: none`)  
+    - Must return a cleanup function in `apply()`  
 - Structure:
   ```
   /themes/your-theme/
