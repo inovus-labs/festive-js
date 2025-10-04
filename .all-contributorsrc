@@ -8,5 +8,24 @@
   "commitType": "docs",
   "commitConvention": "angular",
   "contributorsPerLine": 7,
-  "contributors": []
+  "contributors": [
+    {
+      "login": "decoded-cipher",
+      "name": "Arjun Krishna",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44474792?v=4",
+      "profile": "http://arjunkrishna.in",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "erzer12",
+      "name": "Harshil P",
+      "avatar_url": "https://avatars.githubusercontent.com/u/162300039?v=4",
+      "profile": "https://github.com/erzer12",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
 }
