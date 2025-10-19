@@ -93,6 +93,14 @@
       <button onclick="Festive.init({forceTheme:'autumn', themes: {'autumn': {count: 120}}})">Denser Leaves</button>
     </div>
 
+    <!-- Rain Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #87ceeb;">Rain</h2>
+    <div class="buttons">
+      <button onclick="Festive.init({forceTheme:'rain'})">Gentle Rain</button>
+      <button onclick="Festive.init({forceTheme:'rain', themes: {'rain': {thunder: true}}})">Thunderstorm</button>
+      <button onclick="Festive.init({forceTheme:'rain', themes: {'rain': {dropInterval: 40, dropColor: 'rgba(174,194,224,0.8)'}}})">Heavy Rain</button>
+    </div>
+
     <div class="clear-section">
       <button class="clear-btn" onclick="Festive.destroy?.()">Clear</button>
     </div>
