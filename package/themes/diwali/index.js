@@ -12,6 +12,11 @@ const DEF = {
   duration: 1.5
 };
 
+// Timing constants for better maintainability
+const STAGGER_MS = 80;           // Delay between individual fireworks in a set
+const REMOVAL_BUFFER_MS = 100;   // Buffer after animation before DOM removal
+const CYCLE_BUFFER_MS = 600;     // Extra buffer between complete cycles
+
 function injectCSS() {
   if (document.getElementById("diwali-css")) return;
   const css = `
@@ -57,12 +62,13 @@ export default {
     const timers = new Set();
 
     const perSet = Math.max(8, Math.round(cfg.count * 0.7));
-    const totalCycleTime = cfg.duration * 1000 + 600; // animation + fade buffer
+    // Calculate total cycle time accounting for staggering
+    const totalCycleTime = (perSet - 1) * STAGGER_MS + cfg.duration * 1000 + REMOVAL_BUFFER_MS + CYCLE_BUFFER_MS;
 
     function createFireworkSet() {
       if (!alive) return;
       for (let i = 0; i < perSet; i++) {
-        const delay = i * 80;
+        const delay = i * STAGGER_MS;
         const t = setTimeout(() => {
           createFirework();
           timers.delete(t);
@@ -81,7 +87,14 @@ export default {
     function createFirework() {
       const firework = document.createElement("img");
       firework.className = "diwali-firework";
-      const images = cfg.fireworkImages;
+      
+      // Safe fallback for images with guard against empty arrays
+      const images = (cfg.fireworkImages && cfg.fireworkImages.length) 
+        ? cfg.fireworkImages 
+        : DEF.fireworkImages;
+      
+      if (!images || !images.length) return; // No images to show, skip
+      
       firework.src = images[Math.floor(Math.random() * images.length)];
       const size = Math.random() * (cfg.maxSize - cfg.minSize) + cfg.minSize;
 
@@ -96,7 +109,7 @@ export default {
       const removalTimer = setTimeout(() => {
         if (firework.parentNode) firework.remove();
         timers.delete(removalTimer);
-      }, cfg.duration * 1000 + 100);
+      }, cfg.duration * 1000 + REMOVAL_BUFFER_MS);
       timers.add(removalTimer);
     }
 
