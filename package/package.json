@@ -51,5 +51,8 @@
   ],
   "devDependencies": {
     "vite": "^4.4.9"
+  },
+  "dependencies": {
+    "festive-js": "^0.1.0"
   }
 }
