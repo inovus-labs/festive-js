@@ -111,7 +111,7 @@ export default {
       requestAnimationFrame(frame);
 
       const removeTimer = setTimeout(() => {
-        if (img.parentNode) img.remove();
+        img.remove();
         timeouts.delete(removeTimer);
       }, (duration + delay) * 1000 + 200);
       timeouts.add(removeTimer);
