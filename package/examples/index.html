@@ -11,15 +11,21 @@
       height: 100vh; 
       display: flex; 
       justify-content: center; 
-      align-items: center; 
+      /* top-align so long content scrolls naturally in the page */
+      align-items: flex-start; 
+      padding-top: 5vh;
       font-family: 'Roboto', sans-serif; 
       background: #1a1a1a;
       color: #fff;
-      overflow: hidden;
+      /* single scrollbar at the page level */
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .panel { 
       text-align: center;
       padding: 2rem;
+      /* no internal scrolling — only the page scrolls */
+      box-sizing: border-box;
     }
     h1 {
       font-size: 2rem;
