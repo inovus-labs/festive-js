@@ -94,8 +94,11 @@ export default {
       root.appendChild(img);
 
       // gentle horizontal sway + slow rotation using requestAnimationFrame
+      // compute per-petal random multipliers once (avoid recalculating each frame)
       const start = performance.now() + delay * 1000;
       const end = start + duration * 1000;
+      const swayFreq = rand(0.6, 1.4);
+      const rotMultiplier = rand(0.6, 1.2);
 
       function frame(now) {
         if (!alive) return;
@@ -105,9 +108,9 @@ export default {
         }
         const t = Math.min(1, (now - start) / (end - start));
         // horizontal sway uses a sin curve for gentle side-to-side motion
-        const sway = Math.sin(t * Math.PI * 2 * rand(0.6, 1.4)) * (cfg.swayIntensity * (1 - t * 0.2));
+        const sway = Math.sin(t * Math.PI * 2 * swayFreq) * (cfg.swayIntensity * (1 - t * 0.2));
         const x = drift * t + sway;
-        const rot = 360 * t * rand(0.6, 1.2);
+        const rot = 360 * t * rotMultiplier;
         img.style.transform = `translateX(${x}vw) rotate(${rot}deg)`;
         if (now < end) requestAnimationFrame(frame);
       }
