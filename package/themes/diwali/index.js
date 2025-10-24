@@ -85,9 +85,6 @@ export default {
     }
 
     function createFirework() {
-      const firework = document.createElement("img");
-      firework.className = "diwali-firework";
-      
       // Safe fallback for images with guard against empty arrays
       const images = (cfg.fireworkImages && cfg.fireworkImages.length) 
         ? cfg.fireworkImages 
@@ -95,6 +92,8 @@ export default {
       
       if (!images || !images.length) return; // No images to show, skip
       
+      const firework = document.createElement("img");
+      firework.className = "diwali-firework";
       firework.src = images[Math.floor(Math.random() * images.length)];
       const size = Math.random() * (cfg.maxSize - cfg.minSize) + cfg.minSize;
 
