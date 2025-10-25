@@ -66,9 +66,9 @@ export default {
       // Use named constants instead of magic numbers to improve readability
       speed: (BASE_SPEED_MULTIPLIER + Math.random() * RANDOM_SPEED_RANGE) * (1 + i * BAND_SPEED_INCREMENT),
       offset: (i / cfg.bands) * 0.6, // vertical placement
-      // NOTE: `width` is currently calculated but not used in rendering. Keep it only
-      // if you plan to use it for band thickness or horizontal falloff. Otherwise
-      // remove to avoid confusion.
+      // NOTE: `width` was originally added to support potential features such as variable band thickness
+      // or horizontal falloff in the aurora rendering. Although it is currently not used in rendering,
+      // it has been retained in case such features are implemented in the future. Remove if not needed.
       width: 0.35 + Math.random() * 0.5
     }));
 
