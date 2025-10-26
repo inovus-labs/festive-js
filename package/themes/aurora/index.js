@@ -17,7 +17,7 @@ export default {
       speed: options.speed || 0.6,       // global animation speed
       amplitude: options.amplitude || 0.25, // vertical wave amplitude (fraction of height)
       alpha: options.alpha ?? 0.55,      // overall overlay opacity
-      blend: options.blend || 'screen',  // CSS mix-blend-mode
+      blend: options.blend || 'screen'   // CSS mix-blend-mode
     };
 
     // container
@@ -52,11 +52,23 @@ export default {
     }
     resize();
 
+    // Band animation speed constants (extracted for clarity)
+    // BASE_SPEED_MULTIPLIER: base speed multiplier for each band
+    // RANDOM_SPEED_RANGE: random portion added to base for variation
+    // BAND_SPEED_INCREMENT: per-band incremental multiplier so later bands move slightly faster
+    const BASE_SPEED_MULTIPLIER = 0.4;
+    const RANDOM_SPEED_RANGE = 0.8;
+    const BAND_SPEED_INCREMENT = 0.12;
+
     // band state
     const bands = new Array(cfg.bands).fill(0).map((_, i) => ({
       phase: Math.random() * Math.PI * 2,
-      speed: (0.4 + Math.random() * 0.8) * (1 + i * 0.12),
+      // Use named constants instead of magic numbers to improve readability
+      speed: (BASE_SPEED_MULTIPLIER + Math.random() * RANDOM_SPEED_RANGE) * (1 + i * BAND_SPEED_INCREMENT),
       offset: (i / cfg.bands) * 0.6, // vertical placement
+      // NOTE: `width` was originally added to support potential features such as variable band thickness
+      // or horizontal falloff in the aurora rendering. Although it is currently not used in rendering,
+      // it has been retained in case such features are implemented in the future. Remove if not needed.
       width: 0.35 + Math.random() * 0.5
     }));
 
@@ -102,6 +114,14 @@ export default {
         const grad = ctx.createLinearGradient(0, baseY - amplitudePx, 0, baseY + amplitudePx * 2);
         const colorA = cfg.palette[i % cfg.palette.length];
         const colorB = cfg.palette[(i + 1) % cfg.palette.length];
+        // The following replacements assume colors are provided as rgba(...,1)
+        // and specifically look for a trailing ",1)" to replace the alpha.
+        // This is brittle: if users pass "rgb(...)" (no alpha) or rgba with
+        // a different alpha (e.g. ",0.5)"), the replace will fail and produce
+        // invalid color strings. A more robust approach would parse the color
+        // string (or accept color objects) and reconstruct rgba(...) values
+        // with the desired alpha. For now we keep the simple replace but be
+        // aware of the limitation.
         grad.addColorStop(0, colorA.replace(/, *1\)$/, ',0.0)'));
         grad.addColorStop(0.45, colorA.replace(/, *1\)$/, ',0.65)'));
         grad.addColorStop(0.7, colorB.replace(/, *1\)$/, ',0.35)'));
@@ -113,7 +133,7 @@ export default {
 
       // soft vignette
       ctx.globalCompositeOperation = 'source-over';
-      const vig = ctx.createRadialGradient(w/2, h*0.3, Math.min(w,h)*0.2, w/2, h/2, Math.max(w,h));
+      const vig = ctx.createRadialGradient(w / 2, h * 0.3, Math.min(w, h) * 0.2, w / 2, h / 2, Math.max(w, h));
       vig.addColorStop(0, 'rgba(0,0,0,0)');
       vig.addColorStop(1, 'rgba(0,0,0,0.35)');
       ctx.fillStyle = vig;
