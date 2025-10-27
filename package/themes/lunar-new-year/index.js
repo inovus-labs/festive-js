@@ -6,7 +6,7 @@ const DEF = {
   lanternInterval: 600,     // Slightly slower spawn rate
   floatDuration: 16000,     // Longer, smoother ascent
   batchSpawn: 2,            // Number of lanterns per spawn
-  swayAmplitude: 40,        // How much they sway side to side (px)
+  swayAmplitude: 20,        // How much they sway side to side (px)
   swayDuration: 4000,       // Duration of one full sway cycle
 };
 
@@ -58,6 +58,7 @@ export default {
       if (!alive) return;
 
       for (let i = 0; i < cfg.batchSpawn; i++) {
+        const holder = document.createElement('div');
         const lantern = document.createElement('span');
         lantern.textContent = '🏮';
 
@@ -65,42 +66,42 @@ export default {
         const opacity = (Math.random() * 0.4 + 0.6).toFixed(2);
         const startDelay = Math.random() * cfg.swayDuration;
 
-        Object.assign(lantern.style, {
+        Object.assign(holder.style, {
           position: 'absolute',
           left: `${left}%`,
           bottom: '-80px',
+          opacity: opacity,
+          transition: `transform ${cfg.floatDuration}ms linear, opacity ${cfg.floatDuration}ms linear`,
+        });
+
+        Object.assign(lantern.style, {
+          display: 'inline-block',
           fontSize: `${cfg.lanternSize}px`,
-          opacity,
           filter: `
             drop-shadow(0 0 10px rgba(255, 100, 0, 1))
             drop-shadow(0 0 25px rgba(255, 170, 0, 0.8))
-          `,
-          // IMPORTANT FIX: Changed opacity transition to 'linear'
-          transition: `
-            transform ${cfg.floatDuration}ms linear,
-            opacity ${cfg.floatDuration}ms linear
           `,
           animation: `lantern-sway ${cfg.swayDuration}ms ease-in-out infinite`,
           animationDelay: `${startDelay}ms`,
         });
 
-        container.appendChild(lantern);
+        holder.appendChild(lantern);
+        container.appendChild(holder);
 
-        // Trigger the floating motion
         requestAnimationFrame(() => {
-          lantern.style.transform = 'translateY(-130vh)';
-          lantern.style.opacity = '0';
+          holder.style.transform = 'translateY(-130vh)';
+          holder.style.opacity = '0';
         });
 
-        // IMPORTANT FIX: Use 'transitionend' for robust cleanup
         const removeOnEnd = () => {
-          lantern.removeEventListener('transitionend', removeOnEnd);
-          if (lantern.parentNode) lantern.remove();
+          holder.removeEventListener('transitionend', removeOnEnd);
+          if (holder.parentNode) holder.remove();
         };
-        lantern.addEventListener('transitionend', removeOnEnd);
+        holder.addEventListener('transitionend', removeOnEnd);
       }
     }
 
+    createLantern();
     const lanternTimer = setInterval(createLantern, cfg.lanternInterval);
     timers.add(lanternTimer);
 
