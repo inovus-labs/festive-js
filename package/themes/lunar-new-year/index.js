@@ -28,18 +28,21 @@ export default {
     let alive = true;
     const timers = new Set();
 
-    // Inject CSS keyframes once
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes lantern-sway {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(${cfg.swayAmplitude}px); }
-        50% { transform: translateX(0); }
-        75% { transform: translateX(-${cfg.swayAmplitude}px); }
-        100% { transform: translateX(0); }
-      }
-    `;
-    document.head.appendChild(style);
+    const styleId = 'lunar-new-year-lantern-sway-style';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        @keyframes lantern-sway {
+          0% { transform: translateX(0); }
+          25% { transform: translateX(${cfg.swayAmplitude}px); }
+          50% { transform: translateX(0); }
+          75% { transform: translateX(-${cfg.swayAmplitude}px); }
+          100% { transform: translateX(0); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
 
     const container = document.createElement('div');
     Object.assign(container.style, {
@@ -93,11 +96,19 @@ export default {
           holder.style.opacity = '0';
         });
 
-        const removeOnEnd = () => {
+        let cleanedUp = false;
+        const cleanup = () => {
+          if (cleanedUp) return;
+          cleanedUp = true;
           holder.removeEventListener('transitionend', removeOnEnd);
+          clearTimeout(fallbackTimeout);
           if (holder.parentNode) holder.remove();
         };
+        const removeOnEnd = () => {
+          cleanup();
+        };
         holder.addEventListener('transitionend', removeOnEnd);
+        const fallbackTimeout = setTimeout(cleanup, cfg.floatDuration + 100);
       }
     }
 
@@ -110,7 +121,8 @@ export default {
       timers.forEach(clearInterval);
       timers.clear();
       if (container.parentNode) container.remove();
-      if (style.parentNode) style.remove();
+      const style = document.getElementById(styleId);
+      if (style && style.parentNode) style.remove();
     };
   },
 };
