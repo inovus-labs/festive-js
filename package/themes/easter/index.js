@@ -11,10 +11,9 @@ const DEF = {
   density: 80,
   minDuration: 8,
   maxDuration: 15,
-  driftRange: 15,
   minOpacity: 0.5,
   maxOpacity: 1.0,
-  bunnyHopHeight: 100,
+  bunnyProbability: 0.2,
 };
 
 function injectCSS() {
@@ -87,7 +86,8 @@ export default {
     injectCSS();
     const cfg = { ...DEF, ...(options || {}) };
     let alive = true;
-    const timers = new Set();
+    const timeouts = new Set();
+    const intervals = new Set();
 
     const isMobile = window.innerWidth <= 768;
     const elementCount = isMobile
@@ -97,7 +97,7 @@ export default {
     function createEasterElement() {
       if (!alive) return;
 
-      const isBunny = Math.random() < 0.2; // 20% chance of being a bunny
+      const isBunny = Math.random() < cfg.bunnyProbability;
       const element = document.createElement("div");
       element.className = "easter-element";
 
@@ -130,12 +130,12 @@ export default {
           if (element.parentNode) {
             element.remove();
           }
-          timers.delete(removeTimer);
+          timeouts.delete(removeTimer);
         },
         (duration + delay) * 1000 + 100
       );
 
-      timers.add(removeTimer);
+      timeouts.add(removeTimer);
     }
 
     for (let i = 0; i < Math.min(20, Math.floor(elementCount / 2)); i++) {
@@ -143,7 +143,7 @@ export default {
         createEasterElement,
         Math.random() * 3000
       );
-      timers.add(initialTimer);
+      timeouts.add(initialTimer);
     }
 
     const intervalMs = Math.max(100, 3000 / Math.max(1, elementCount));
@@ -153,15 +153,18 @@ export default {
       }
     }, intervalMs);
 
-    timers.add(spawnInterval);
+    intervals.add(spawnInterval);
 
     return () => {
       alive = false;
-      for (const timer of timers) {
+      for (const timer of timeouts) {
         clearTimeout(timer);
+      }
+      for (const timer of intervals) {
         clearInterval(timer);
       }
-      timers.clear();
+      timeouts.clear();
+      intervals.clear();
       root
         .querySelectorAll(".easter-element")
         .forEach((el) => el.remove());
