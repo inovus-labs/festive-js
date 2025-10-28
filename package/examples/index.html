@@ -11,17 +11,20 @@
       height: 100vh; 
       display: flex; 
       justify-content: center; 
+      /* top-align so long content scrolls naturally in the page */
       align-items: flex-start; 
       padding-top: 5vh;
       font-family: 'Roboto', sans-serif; 
       background: #1a1a1a;
       color: #fff;
+      /* single scrollbar at the page level */
       overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
     .panel { 
       text-align: center;
       padding: 2rem;
+      /* no internal scrolling — only the page scrolls */
       box-sizing: border-box;
     }
     h1 {
@@ -79,7 +82,6 @@
       -->
     </div>
 
-<!-- Valentine's Day Section -->
     <!-- Valentine's Day Section -->
     <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #ff4081;">Valentine's Day</h2>
     <div class="buttons">
