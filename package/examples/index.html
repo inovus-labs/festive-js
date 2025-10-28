@@ -69,9 +69,11 @@
     <h1>Festive Themes</h1>
 
     <!-- Independence Day Section -->
-    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FF9933;">Independence Day - Indian Flag</h2>
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FF9933;">Independence Day</h2>
     <div class="buttons">
-      <button onclick="Festive.init({forceTheme:'independence-day'})">Indian Flag</button>
+      <button onclick="Festive.init({forceTheme:'independence-day', themes: {'independence-day': {flag: 'Indian Flag'}}})">Waving Indian Flag</button>
+      <!-- To add a new flag button, copy the button above and change the 'flag' property to the name of the new flag. -->
+      <!-- e.g., <button onclick="Festive.init({forceTheme:'independence-day', themes: {'independence-day': {flag: 'USA Flag'}}})">Waving USA Flag</button> -->
     </div>
 
     <!-- Valentine's Day Section -->
