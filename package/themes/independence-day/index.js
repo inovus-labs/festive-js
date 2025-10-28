@@ -1,64 +1,73 @@
 /**
+ * Independence Day — modular flag-based theme
+ *
  * To add a new flag:
- * 1. Create a new file in this directory (e.g., `usa.js`).
- * 2. Define the flag's properties in the new file, following the structure of `india.js`.
- * 3. Import the new flag file below.
- * 4. Add the imported flag object to the `flags` array.
+ * 1. Create a new file in this directory (e.g., `usa.js`) that exports the flag object.
+ * 2. Import it below and add it to the `flags` array.
  */
 
 import india from './india.js';
 
-// To add a new flag, import its file and add it to this array.
-const flags = [india]; // e.g., import usa from './usa.js'; flags.push(usa);
+// Add other flags here when available:
+// import usa from './usa.js';
+const flags = [india]; // e.g., const flags = [india, usa];
 
-// Combine all triggers from all flags into one array for the theme.
-const allTriggers = flags.flatMap(flag => flag.triggers || []);
+const allTriggers = flags.flatMap(f => f.triggers || []);
 
 export default {
   key: 'independence-day',
   name: 'Independence Day',
   triggers: allTriggers,
   apply(root = document.body, common = {}, options = {}) {
+    // Determine requested flag: support options.flag or options.themes['independence-day'].flag
+    const manualFlagName =
+      options.flag ||
+      (options.themes && options.themes['independence-day'] && options.themes['independence-day'].flag);
+
     let flag;
 
-    // If manually triggered with a specific flag name, find that flag.
-    if (options.flag) {
-        flag = flags.find(f => f.name === options.flag);
+    if (manualFlagName) {
+      const wanted = String(manualFlagName).toLowerCase();
+      flag = flags.find(f => String(f.name || '').toLowerCase() === wanted);
     } else {
-        // If auto-triggered, find the flag whose trigger matches the current date.
-        const today = new Date();
-        const currentMonth = today.getMonth() + 1; // getMonth() is 0-indexed
-        const currentDay = today.getDate();
+      // Auto-select flag based on today's date and each flag's triggers
+      const today = new Date();
+      const currentMonth = today.getMonth() + 1; // 1-12
+      const currentDay = today.getDate();
 
-        flag = flags.find(f => {
-            if (!f.triggers) return false;
-            return f.triggers.some(trigger => {
-                if (trigger.type !== 'range') return false;
+      flag = flags.find(f => {
+        if (!f.triggers) return false;
+        return f.triggers.some(trigger => {
+          if (trigger.type !== 'range') return false;
 
-                // Handle date ranges that are within the same month.
-                if (trigger.monthStart === trigger.monthEnd) {
-                    return currentMonth === trigger.monthStart && currentDay >= trigger.dayStart && currentDay <= trigger.dayEnd;
-                }
+          // Same-month range
+          if (trigger.monthStart === trigger.monthEnd) {
+            return (
+              currentMonth === trigger.monthStart &&
+              currentDay >= trigger.dayStart &&
+              currentDay <= trigger.dayEnd
+            );
+          }
 
-                // Handle date ranges that span across multiple months (assumes within the same year).
-                const inStartMonth = currentMonth === trigger.monthStart && currentDay >= trigger.dayStart;
-                const inEndMonth = currentMonth === trigger.monthEnd && currentDay <= trigger.dayEnd;
-                const inBetweenMonth = currentMonth > trigger.monthStart && currentMonth < trigger.monthEnd;
-                
-                return inStartMonth || inEndMonth || inBetweenMonth;
-            });
+          // Range across months (assumes same year)
+          const inStartMonth = currentMonth === trigger.monthStart && currentDay >= trigger.dayStart;
+          const inEndMonth = currentMonth === trigger.monthEnd && currentDay <= trigger.dayEnd;
+          const inBetween = currentMonth > trigger.monthStart && currentMonth < trigger.monthEnd;
+
+          return inStartMonth || inEndMonth || inBetween;
         });
+      });
     }
 
-    // Default to the first flag in the array if no specific flag is found.
+    // Default to first flag if none matched
     flag = flag || flags[0];
 
     const cfg = {
-      palette: flag.palette,
+      palette: flag.palette || options.palette || ['#FF9933', '#FFFFFF', '#138808'],
       speed: options.speed || 0.4,
-      amplitude: options.amplitude || 0.08,
-      alpha: options.alpha ?? 0.15, // Reduced opacity for better visibility
-      blend: options.blend || 'multiply' // Changed blend mode for better background effect
+      amplitude: options.amplitude || 0.08, // relative to height
+      alpha: options.alpha ?? 0.15,
+      blend: options.blend || 'multiply'
     };
 
     const overlay = document.createElement('div');
@@ -67,7 +76,7 @@ export default {
       position: 'fixed',
       inset: '0',
       pointerEvents: 'none',
-      zIndex: '-1', // Keeps it behind all content
+      zIndex: '-1', // keep behind content
       mixBlendMode: cfg.blend,
       opacity: String(cfg.alpha),
       overflow: 'hidden'
@@ -85,14 +94,26 @@ export default {
 
     function resize() {
       dpr = Math.max(1, window.devicePixelRatio || 1);
-      canvas.width = Math.floor(canvas.clientWidth * dpr);
-      canvas.height = Math.floor(canvas.clientHeight * dpr);
+      const w = Math.max(1, canvas.clientWidth || canvas.offsetWidth);
+      const h = Math.max(1, canvas.clientHeight || canvas.offsetHeight);
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
+    // Initial sizing
     resize();
 
     let rafId = null;
     let start = performance.now();
+
+    function getWaveY(x, t, w, h, cfgLocal) {
+      const xFactor = x / (w * 0.5);
+      const waveAmplitude = h * cfgLocal.amplitude;
+      return (
+        Math.sin(xFactor * Math.PI + t) * waveAmplitude * Math.cos(t / 3) +
+        Math.cos(xFactor * Math.PI * 0.7 + t * 1.2) * waveAmplitude * 0.5
+      );
+    }
 
     function draw(now) {
       const t = (now - start) / 4000 * cfg.speed;
@@ -101,34 +122,32 @@ export default {
       ctx.clearRect(0, 0, w, h);
 
       const stripeHeight = h / cfg.palette.length;
-      const waveAmplitude = h * cfg.amplitude;
-
-      const getWaveY = (x, t) => {
-        const xFactor = x / (w * 0.5);
-        return Math.sin(xFactor * Math.PI + t) * waveAmplitude * Math.cos(t / 3) +
-               Math.cos(xFactor * Math.PI * 0.7 + t * 1.2) * waveAmplitude * 0.5;
-      };
 
       for (let i = 0; i < cfg.palette.length; i++) {
         ctx.fillStyle = cfg.palette[i];
         ctx.beginPath();
         const y0 = i * stripeHeight;
-        ctx.moveTo(0, y0 + getWaveY(0, t));
+        ctx.moveTo(0, y0 + getWaveY(0, t, w, h, cfg));
         for (let x = 1; x <= w; x += 5) {
-          ctx.lineTo(x, y0 + getWaveY(x, t));
+          ctx.lineTo(x, y0 + getWaveY(x, t, w, h, cfg));
         }
         const y1 = (i + 1) * stripeHeight;
-        ctx.lineTo(w, y1 + getWaveY(w, t));
+        ctx.lineTo(w, y1 + getWaveY(w, t, w, h, cfg));
         for (let x = w; x >= 0; x -= 5) {
-          ctx.lineTo(x, y1 + getWaveY(x, t));
+          ctx.lineTo(x, y1 + getWaveY(x, t, w, h, cfg));
         }
         ctx.closePath();
         ctx.fill();
       }
 
-      // If the flag has a custom element (like the Ashoka Chakra), draw it.
+      // Draw custom element (e.g., Ashoka Chakra) if provided by the flag
       if (flag.drawCustomElement) {
-        flag.drawCustomElement(ctx, w, h, stripeHeight, getWaveY, t);
+        try {
+          flag.drawCustomElement(ctx, w, h, stripeHeight, (x, tn) => getWaveY(x, tn, w, h, cfg), t);
+        } catch (err) {
+          // Fail silently to avoid breaking the animation loop
+          console.error('Error drawing custom element for independence-day flag:', err);
+        }
       }
 
       rafId = requestAnimationFrame(draw);
