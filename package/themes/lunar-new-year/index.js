@@ -97,6 +97,12 @@ export default {
         });
 
         let cleanedUp = false;
+        let fallbackTimeout;
+
+        const removeOnEnd = () => {
+          cleanup();
+        };
+
         const cleanup = () => {
           if (cleanedUp) return;
           cleanedUp = true;
@@ -104,11 +110,9 @@ export default {
           clearTimeout(fallbackTimeout);
           if (holder.parentNode) holder.remove();
         };
-        const removeOnEnd = () => {
-          cleanup();
-        };
+        
         holder.addEventListener('transitionend', removeOnEnd);
-        const fallbackTimeout = setTimeout(cleanup, cfg.floatDuration + 100);
+        fallbackTimeout = setTimeout(cleanup, cfg.floatDuration + 100);
       }
     }
 
