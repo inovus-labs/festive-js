@@ -1,4 +1,3 @@
-
 /**
  * 🦇 Halloween Bats Theme — Ultimate Edition (300+ lines)
  * -------------------------------------------------------
