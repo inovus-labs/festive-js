@@ -137,14 +137,25 @@
         <button onclick="Festive.init({forceTheme:'lunar-new-year'})">Floating Lanterns</button>
     </div>
 
+    <!-- Holi Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FF6B6B;">Holi - Festival of Colors</h2>
+    <div class="buttons">
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'powder', intensity: 1.3}}})">Powder Only</button>
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'rangoli', patternCount: 4}}})">Rangoli Only</button>
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'splash', intensity: 2 , splashBurst: 2}}})">Splash Only</button>
+    </div>
+
     <div class="clear-section">
       <button class="clear-btn" onclick="Festive.destroy?.()">Clear</button>
     </div>
   </div>
+  </div>
 
-  <script src="../dist/core.min.js"></script>
+  <script src="../dist/core.js"></script>
   <script>
-    Festive.init();
+    // Use the built bundle in `dist/core.js` which includes all themes (built).
+    // This relies on the `npm run build` output being up-to-date.
+    try { Festive.init(); } catch (e) { console.error('[examples] Festive.init failed', e) }
   </script>
 </body>
 </html>
