@@ -1,5 +1,5 @@
 /**
- * 🦇 Halloween Bats Theme — Ultimate Edition (300+ lines)
+ * 🦇 Halloween Bats Theme — Ultimate Edition 
  * -------------------------------------------------------
  * A rich festive overlay celebrating Halloween with spooky bats,
  * a glowing moon, drifting fog, and a starry night sky.
