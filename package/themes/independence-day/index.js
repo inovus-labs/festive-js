@@ -7,6 +7,11 @@
  */
 
 import india from './india.js';
+import france from './france.js';
+
+// Add other flags here when available:
+// import usa from './usa.js';
+const flags = [india,france]; // e.g., const flags = [india, usa];
 import japan from './japan.js';
 // Add other flags here when available:
 // import usa from './usa.js';
