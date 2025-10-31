@@ -7,10 +7,11 @@
  */
 
 import india from './india.js';
+import usa from './usa.js';
 
 // Add other flags here when available:
 // import usa from './usa.js';
-const flags = [india]; // e.g., const flags = [india, usa];
+const flags = [india,usa]; // e.g., const flags = [india, usa];
 
 const allTriggers = flags.flatMap(f => f.triggers || []);
 
