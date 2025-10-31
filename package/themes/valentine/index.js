@@ -12,6 +12,12 @@ const DEF = {
   driftRange: 20,
   minOpacity: 0.5,
   maxOpacity: 1.0,
+  MOBILE_BREAKPOINT: 768,
+  maxDelay: 5,
+  MAX_INITIAL_HEARTS: 20,
+  MAX_INITIAL_DELAY_MS: 3000,
+  MIN_SPAWN_INTERVAL_MS: 100,
+  SPAWN_WINDOW_MS: 3000,
 };
 
 function injectCSS() {
@@ -60,7 +66,7 @@ export default {
     let alive = true;
     const timers = new Set();
 
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.innerWidth <= cfg.MOBILE_BREAKPOINT;
     const heartCount = isMobile ? Math.floor(cfg.density * 0.5) : cfg.density;
 
     function createHeart() {
@@ -73,7 +79,7 @@ export default {
       const sizeMultiplier = isMobile ? 0.8 : 1;
       const size = rand(cfg.minSize, cfg.maxSize) * sizeMultiplier;
       const duration = rand(cfg.minDuration, cfg.maxDuration);
-      const delay = rand(0, 5);
+      const delay = rand(0, cfg.maxDelay);
       const opacity = rand(cfg.minOpacity, cfg.maxOpacity);
 
       heart.style.cssText = `
@@ -100,12 +106,12 @@ export default {
       timers.add(removeTimer);
     }
 
-    for (let i = 0; i < Math.min(20, Math.floor(heartCount / 2)); i++) {
-      const initialTimer = setTimeout(createHeart, Math.random() * 3000);
+    for (let i = 0; i < Math.min(cfg.MAX_INITIAL_HEARTS, Math.floor(heartCount / 2)); i++) {
+      const initialTimer = setTimeout(createHeart, Math.random() * cfg.MAX_INITIAL_DELAY_MS);
       timers.add(initialTimer);
     }
 
-    const intervalMs = Math.max(100, 3000 / Math.max(1, heartCount));
+    const intervalMs = Math.max(cfg.MIN_SPAWN_INTERVAL_MS, cfg.SPAWN_WINDOW_MS / Math.max(1, heartCount));
     const spawnInterval = setInterval(() => {
       if (alive && root.childElementCount < heartCount) {
         createHeart();

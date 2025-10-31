@@ -71,12 +71,24 @@
   <div class="panel">
     <h1>Festive Themes</h1>
 
+    <!-- Independence Day Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FF9933;">Independence Day</h2>
+    <div class="buttons">
+      <!-- Manual-init example that specifies which flag to use for the independence-day theme.
+          You can add more buttons by copying this and changing the flag name. -->
+      <button onclick="Festive.init({forceTheme:'independence-day', themes: {'independence-day': {flag: 'Indian Flag'}}})">Waving Indian Flag</button>
+      <!-- Example for adding another flag:
+          <button onclick="Festive.init({forceTheme:'independence-day', themes: {'independence-day': {flag: 'USA Flag'}}})">Waving USA Flag</button>
+      -->
+    </div>
+
     <!-- Valentine's Day Section -->
     <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #ff4081;">Valentine's Day</h2>
     <div class="buttons">
       <button onclick="Festive.init({forceTheme:'valentine'})">Floating Hearts</button>
+    </div>
 
-      <!-- Easter Section -->
+    <!-- Easter Section -->
     <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FFB6C1;">Easter</h2>
     <div class="buttons">
       <button onclick="Festive.init({forceTheme:'easter'})">Easter Fun</button>
@@ -131,6 +143,13 @@
       <button onclick="Festive.init({forceTheme:'emoji'})">Classic Emoji</button>
     </div>
 
+    <!-- Halloween Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #ff7518;">Halloween</h2>
+    <div class="buttons">
+        <button onclick="Festive.init({forceTheme:'halloween-bats'})">Flying Bats</button>
+    </div>
+    
+
     <!-- Lunar New Year Section -->
     <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #ff4500;">Lunar New Year</h2>
     <div class="buttons">
@@ -143,14 +162,21 @@
       <button onclick="Festive.init({ forceTheme: 'beach-day' })">Sunny Vibes</button>
     </div>
 
+    <!-- Holi Section -->
+    <h2 style="font-size: 1.5rem; margin: 2rem 0 1rem 0; color: #FF6B6B;">Holi - Festival of Colors</h2>
+    <div class="buttons">
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'powder', intensity: 1.3}}})">Powder Only</button>
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'rangoli', patternCount: 4}}})">Rangoli Only</button>
+      <button onclick="Festive.init({forceTheme:'holi', themes: {holi: {mode: 'splash', intensity: 2 , splashBurst: 2}}})">Splash Only</button>
+    </div>
+
     <div class="clear-section">
       <button class="clear-btn" onclick="Festive.destroy?.()">Clear</button>
     </div>
   </div>
+  </div>
 
   <script src="../dist/core.min.js"></script>
-  <script>
-    Festive.init();
-  </script>
+ 
 </body>
 </html>
