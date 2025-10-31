@@ -15,7 +15,6 @@ export default {
       ctx.save();
   
       const whiteWidth = w * 0.25;      // 25% white area
-      const redStartX = whiteWidth;
       const triangleCount = 5;          // 5 white triangles
       const triangleBase = h / (triangleCount * 2); // height per half triangle
       const triangleDepth = w * 0.10;   // depth into red (1/10th width, realistic)

@@ -8,24 +8,15 @@
 
 import india from './india.js';
 import bahrain from './bahrain.js';
-
-// Add other flags here when available:
-// import usa from './usa.js';
-const flags = [india,bahrain]; // e.g., const flags = [india, usa];
 import france from './france.js';
-
-// Add other flags here when available:
-// import usa from './usa.js';
-const flags = [india,france]; // e.g., const flags = [india, usa];
 import japan from './japan.js';
-// Add other flags here when available:
-// import usa from './usa.js';
-const flags = [india,japan]; // e.g., const flags = [india, usa];
 import usa from './usa.js';
+import indonesia from './indonesia.js';
+import greece from './greece.js';
 
 // Add other flags here when available:
 // import usa from './usa.js';
-const flags = [india,usa]; // e.g., const flags = [india, usa];
+const flags = [india, bahrain, usa, japan, france, greece, indonesia]; // e.g., const flags = [india, usa];
 
 const allTriggers = flags.flatMap(f => f.triggers || []);
 
@@ -104,7 +95,7 @@ export default {
     overlay.appendChild(canvas);
     root.appendChild(overlay);
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: false });
     let dpr = Math.max(1, window.devicePixelRatio || 1);
 
     function resize() {
