@@ -5,7 +5,7 @@ const DEF = {
   lanternSize: 60,          // Larger emoji for clarity
   lanternInterval: 600,     // Slightly slower spawn rate
   floatDuration: 16000,     // Longer, smoother ascent
-  batchSpawn: 2,            // Number of lanterns per spawn
+  batchSpawn: [1, 3],       // Range for number of lanterns per spawn [min, max]
   swayAmplitude: 20,        // How much they sway side to side (px)
   swayDuration: 4000,       // Duration of one full sway cycle
 };
@@ -53,14 +53,20 @@ export default {
       height: '100%',
       overflow: 'hidden',
       pointerEvents: 'none',
-      zIndex: 9999,
+      zIndex: -1,
     });
     root.appendChild(container);
 
     function createLantern() {
       if (!alive) return;
 
-      for (let i = 0; i < cfg.batchSpawn; i++) {
+      let numToSpawn = cfg.batchSpawn;
+      if (Array.isArray(cfg.batchSpawn) && cfg.batchSpawn.length === 2) {
+        const [min, max] = cfg.batchSpawn;
+        numToSpawn = Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+      
+      for (let i = 0; i < numToSpawn; i++) {
         const holder = document.createElement('div');
         const lantern = document.createElement('span');
         lantern.textContent = '🏮';
